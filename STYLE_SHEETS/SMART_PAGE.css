@@ -1,0 +1,123 @@
+body {
+	background-color: #012353;
+	background-image: url('../IMAGES/SMART_BACKGROUND.jpg');
+	background-size: cover;
+	background-position: middle;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+h1 {
+	display: inline-block;
+	background-color: black;
+	color: white;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+	background-color: black;
+	color: white;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+#led {
+	text-align: center;
+	float: left;
+	margin-left: 400px;
+}
+
+#fan {
+	text-align: center;
+	float: right;
+	margin-right: 400px;
+}
+
+#ac {
+	text-align: center;
+	float: left;
+	margin-left: 400px;
+}
+
+#test {
+	color: white;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+	float: right;
+	margin-right: 400px;
+}
+#homeStatus {
+  color: #45a049;
+}
+
+#homeStatus.unsafe {
+  color: #ff0000 !important;
+}
+
+
+button {
+	padding: 10px 20px;
+	margin: 5px;
+	font-size: 20px;
+	background-color: #000000;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border: 2px solid white;
+	margin-top: 10px;
+}
+
+button#ledOn:hover {
+	background-color: #45a049;
+}
+
+button#ledOff:hover {
+	background-color: #ff0000;
+}
+
+button#acOn:hover {
+	background-color: #45a049;
+}
+
+button#acOff:hover {
+	background-color: #ff0000;
+}
+
+button#fanOn:hover {
+	background-color: #45a049;
+}
+
+button#fanOff:hover {
+	background-color: #ff0000;
+}
+
+#ledImage {
+	width: 50px;
+	height: 50px;
+	vertical-align: middle;
+}
+
+#ACImage {
+	width: 50px;
+	height: 50px;
+	vertical-align: middle;
+}
+
+#FANImage {
+	width: 50px;
+	height: 50px;
+	vertical-align: middle;
+}
