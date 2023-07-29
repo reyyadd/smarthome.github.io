@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="STYLE_SHEETS/LOGIN_PAGE.css">
+</head>
+
+<body>
+  <div id="login-form-wrap">
+    <h2>Login Form</h2>
+    <form action="" method="POST" id="login-form" onsubmit="return validateForm()" >
+      <p>
+        <input type="text" id="username" name="username" placeholder="Username" required><i>
+          <span></span><span></span></i>
+      </p>
+      <p>
+        <input type="password" id="password" name="password" placeholder="Password" required><i>
+          <span></span><span></span></i>
+      </p>
+      <div id="error-message">
+        <p>
+          <span id="errormsg"></span>        
+        </p>
+      </div>
+      <p>
+        <input type="submit" id="login" value="Login">
+      </p>
+    </form>
+    <div id="create-account-wrap">
+      <label class="checkbox-label">
+        <input type="checkbox" id="showPassword" class="largerCheckbox" onchange="togglePasswordVisibility()">
+        Show Password
+      </label>
+    </div>
+    <script>
+      function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+        } else {
+          passwordInput.type = "password";
+        }
+      }
+      function validateForm() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        if (username === "32019120" && password === "32019156") {
+          window.location.href = "MAIN.html";
+          return false;
+        } else {
+          document.getElementById("errormsg").textContent = "Invalid username or password";
+          return false;
+        }
+      }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Smart Home Control</title>
+	<link rel="stylesheet" type="text/css" href="STYLE_SHEETS/SMART_PAGE.css">
+</head>
+
+<body>
+	<div class="h1">
+		<h1>Smart Home Control<br />
+			<i> Using Internet of Things</i>
+		</h1>
+	</div>
+	<div id="led">
+		<h2>LED <img id="ledImage" src="" /></h2>
+		<br />
+		<button id="ledOn" onclick="turnOnLED()">Turn On</button>
+		<button id="ledOff" onclick="turnOffLED()">Turn Off</button>
+	</div>
+	<div id="fan">
+		<h2>Fan <img id="FANImage" src="" /></h2>
+		<br />
+		<button id="fanOn" onclick="turnOnFAN()">Turn On</button>
+		<button id="fanOff" onclick="turnOffFAN()">Turn Off</button>
+	</div>
+	<div id="ac">
+		<h2>Air Conditioner <img id="ACImage" src="" /></h2>
+		<br />
+		<button id="acOn" onclick="turnOnAC()">Turn On</button>
+		<button id="acOff" onclick="turnOffAC()">Turn Off</button>
+	</div>
+	<div id="test">
+		<h2>Home Status: <span id="homeStatus" class="">Safe</span></h2>
+	</div>
+	<script>
+		function turnOnLED() {
+			document.getElementById('ledImage').src = 'IMAGES/ON_INDICATOR.png';
+			recordStatus('LED_ON', 'LED');
+		}
+
+		function turnOffLED() {
+			document.getElementById('ledImage').src = 'IMAGES/OFF_INDICATOR.png';
+			recordStatus('LED_OFF', 'LED');
+		}
+
+		function turnOnAC() {
+			document.getElementById('ACImage').src = 'IMAGES/ON_INDICATOR.png';
+			recordStatus('AC_ON', 'AC');
+		}
+
+		function turnOffAC() {
+			document.getElementById('ACImage').src = 'IMAGES/OFF_INDICATOR.png';
+			recordStatus('AC_OFF', 'AC');
+		}
+
+		function turnOnFAN() {
+			document.getElementById('FANImage').src = 'IMAGES/ON_INDICATOR.png';
+			recordStatus('FAN_ON', 'FAN');
+		}
+
+		function turnOffFAN() {
+			document.getElementById('FANImage').src = 'IMAGES/OFF_INDICATOR.png';
+			recordStatus('FAN_OFF', 'FAN');
+		}
+
+		function recordStatus(status, device) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'PHP_FILES/TRANSMITTER.php?status=' + status, true);
+			xhr.send();
+			localStorage.setItem(device, status);
+		}
+		function updateImageIndicators() {
+			const ledStatus = localStorage.getItem('LED');
+			const acStatus = localStorage.getItem('AC');
+			const fanStatus = localStorage.getItem('FAN');
+
+			if (ledStatus === 'LED_ON') {
+				document.getElementById('ledImage').src = 'IMAGES/ON_INDICATOR.png';
+			} else {
+				document.getElementById('ledImage').src = 'IMAGES/OFF_INDICATOR.png';
+			}
+
+			if (acStatus === 'AC_ON') {
+				document.getElementById('ACImage').src = 'IMAGES/ON_INDICATOR.png';
+			} else {
+				document.getElementById('ACImage').src = 'IMAGES/OFF_INDICATOR.png';
+			}
+
+			if (fanStatus === 'FAN_ON') {
+				document.getElementById('FANImage').src = 'IMAGES/ON_INDICATOR.png';
+			} else {
+				document.getElementById('FANImage').src = 'IMAGES/OFF_INDICATOR.png';
+			}
+		}
+
+		function checkHomeStatus() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var status = xhr.responseText;
+					var homeStatusElement = document.getElementById('homeStatus');
+					if (status === '9') {
+						homeStatusElement.textContent = 'Unsafe';
+						homeStatusElement.classList.add('unsafe');
+
+					}
+					else if (status !== '9') {
+						homeStatusElement.textContent = 'Safe';
+						homeStatusElement.classList.remove('unsafe');
+
+					}
+				}
+			};
+			xhr.open('GET', 'TEXT_FILES/RECEIVER.txt', true);
+			xhr.send();
+		}
+		window.onload = function () {
+			updateImageIndicators();
+			checkHomeStatus();
+			setInterval(checkHomeStatus, 1000);
+		};
+
+	</script>
+
+</body>
+
+</html>
